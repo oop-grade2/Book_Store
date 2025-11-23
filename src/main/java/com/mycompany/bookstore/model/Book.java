@@ -15,10 +15,10 @@ public class Book {
     private String description;
     private String coverImageURL;
     
-    private SubCategory subcategory; // many to one
+    private SubCategory subcategory;     // many to one
     private List<OrderItems> orderItems; // one to many
-    private List<WishList> wishLists; // one to many
-    private List<Review> reviews; // one to many
+    private List<WishList> wishLists;    // one to many
+    private List<Review> reviews;        // one to many
 
     public Book(String title, String author, String genre, 
             LocalDate publicationDate, BigDecimal price, Integer quantityInStock, 
