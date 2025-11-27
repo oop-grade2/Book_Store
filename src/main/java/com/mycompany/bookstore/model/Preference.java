@@ -8,6 +8,9 @@ public class Preference {
 
     private Customer customer; // many to one 
 
+    public Preference() {
+    }
+    
     public Preference(String favoriteGenre, String favoriteAuthor, 
             String recommendations, Customer customer) {
         this.favoriteGenre = favoriteGenre;
@@ -15,7 +18,16 @@ public class Preference {
         this.recommendations = recommendations;
         this.customer = customer;
     }
-
+    
+    public Preference(int preferenceId, String favoriteGenre, String favoriteAuthor,
+            String recommendations, Customer customer) {
+        this.preferenceId = preferenceId;
+        this.favoriteGenre = favoriteGenre;
+        this.favoriteAuthor = favoriteAuthor;
+        this.recommendations = recommendations;
+        this.customer = customer;
+    }
+    
     public int getPreferenceId() {
         return preferenceId;
     }
@@ -55,6 +67,5 @@ public class Preference {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
-    
+      
 }

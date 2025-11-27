@@ -1,8 +1,6 @@
 package com.mycompany.bookstore.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Book {
     private String bookId;
@@ -16,15 +14,17 @@ public class Book {
     private String coverImageURL;
     
     private SubCategory subcategory;     // many to one
-    private List<OrderItems> orderItems; // one to many
-    private List<WishList> wishLists;    // one to many
-    private List<Review> reviews;        // one to many
+    
+    // private List<OrderItems> orderItems; // one to many
+    // private List<WishList> wishLists;    // one to many
+    // private List<Review> reviews;        // one to many
 
+    // if the book id was generated in dao 
     public Book(String title, String author, String genre, 
             LocalDate publicationDate, BigDecimal price, Integer quantityInStock, 
             String description, String coverImageURL, 
             SubCategory subcategory) {
-        this();
+        this.bookId = null;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -36,14 +36,23 @@ public class Book {
         this.subcategory = subcategory;
         
     }
-    
-    public Book()
-    {
-        this.orderItems = new ArrayList<>();
-        this.wishLists = new ArrayList<>();
-        this.reviews = new ArrayList<>();
-    }
 
+    // if we retrived data from the database
+    public Book(String bookId, String title, String author, String genre, LocalDate publicationDate, BigDecimal price, Integer quantityInStock, String description, String coverImageURL, SubCategory subcategory) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.publicationDate = publicationDate;
+        this.price = price;
+        this.quantityInStock = quantityInStock;
+        this.description = description;
+        this.coverImageURL = coverImageURL;
+        this.subcategory = subcategory;
+    }
+    
+    public Book() {}
+    
     public SubCategory getSubcategory() {
         return subcategory;
     }
@@ -52,30 +61,6 @@ public class Book {
         this.subcategory = subcategory;
     }
 
-    public List<OrderItems> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItems> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public List<WishList> getWishLists() {
-        return wishLists;
-    }
-
-    public void setWishLists(List<WishList> wishLists) {
-        this.wishLists = wishLists;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-    
     public String getBookId() {
         return bookId;
     }

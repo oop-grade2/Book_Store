@@ -12,6 +12,9 @@ public class Shipping {
     
     private Orders order; // one to one
 
+    public Shipping() {
+    }
+    
     public Shipping(String shippingAddress, String deliveryStatus, 
             String trackingNumber, BigDecimal shippingCost, 
             LocalDate expectedDeliveryDate, Orders order) {
@@ -21,6 +24,13 @@ public class Shipping {
         this.shippingCost = shippingCost;
         this.expectedDeliveryDate = expectedDeliveryDate;
         this.order = order;
+    }
+    
+    public Shipping(int shippingId, String shippingAddress, String deliveryStatus, 
+        String trackingNumber, BigDecimal shippingCost, 
+        LocalDate expectedDeliveryDate, Orders order) {
+    this(shippingAddress, deliveryStatus, trackingNumber, shippingCost, expectedDeliveryDate, order);
+    this.shippingId = shippingId;
     }
 
     public int getShippingId() {
@@ -79,4 +89,7 @@ public class Shipping {
         this.order = order;
     }
     
+    public boolean isDelivered() {
+        return "DELIVERED".equalsIgnoreCase(this.deliveryStatus);
+    }
 }

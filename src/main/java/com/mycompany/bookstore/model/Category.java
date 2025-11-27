@@ -8,15 +8,16 @@ public class Category {
     private String categoryName; 
 
     private List<SubCategory> subcategories; 
+
+    
+    public Category()
+    {
+        this.subcategories = new ArrayList<>(); 
+    }
     
     public Category(String categoryName) {
         this();
         this.categoryName = categoryName;
-    }
-
-    public Category()
-    {
-        this.subcategories = new ArrayList<>(); 
     }
     
     public List<SubCategory> getSubcategories() {
@@ -43,4 +44,12 @@ public class Category {
         this.categoryName = categoryName;
     }
     
+    // to deal with the subcategories not as a list
+    public void addSubCategory(SubCategory subCategory) {
+        this.subcategories.add(subCategory);
+    }
+
+    public void removeSubCategory(SubCategory subCategory) {
+        this.subcategories.remove(subCategory);
+    }
 }

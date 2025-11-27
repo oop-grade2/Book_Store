@@ -15,14 +15,28 @@ public class Orders {
     private Payments payment; // one to one
     private List<OrderItems> orderItems = new ArrayList<>(); // one to many
 
+    
+    public Orders() {
+        this.orderItems = new ArrayList<>();
+    }
+
+    // here order id is auto generated 
     public Orders(LocalDate orderDate, BigDecimal totalAmount, String paymentStatus, 
-            Customer customer, Shipping shipping, Payments payment) {
+                  Customer customer, Shipping shipping, Payments payment) {
+        this();
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.customer = customer;
         this.shipping = shipping;
         this.payment = payment;
+    }
+
+    // to retrieve data from database
+    public Orders(int orderId, LocalDate orderDate, BigDecimal totalAmount, String paymentStatus, 
+                  Customer customer, Shipping shipping, Payments payment) {
+        this(orderDate, totalAmount, paymentStatus, customer, shipping, payment);
+        this.orderId = orderId;
     }
 
     public int getOrderId() {
@@ -48,8 +62,6 @@ public class Orders {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
-
-    
 
     public String getPaymentStatus() {
         return paymentStatus;
@@ -91,4 +103,13 @@ public class Orders {
         this.orderItems = orderItems;
     }
      
+    
+    public void addOrderItem(OrderItems item) {
+        this.orderItems.add(item);
+    }
+
+    public void removeOrderItem(OrderItems item) {
+        this.orderItems.remove(item);
+    }
+
 }

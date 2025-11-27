@@ -7,6 +7,9 @@ public class WishList {
     private Customer customer; // many to one
     private Book book;         // many to one
 
+    public WishList() {
+    }
+    
     public WishList(LocalDate dateAdded, Customer customer, Book book) {
         this.dateAdded = dateAdded;
         this.customer = customer;

@@ -38,6 +38,7 @@ public class BookDAOimp implements BookDAO {
         try {
             book.setBookId(generateBookId(book));
 
+            // ضيفوا هنا نفس الاسماء اللي في الداتابيز عشان دي اللي بتتعامل معاها
             String sql = "INSERT INTO Book (BookID, Title, Author, Genre, PublicationDate, "
                     + "Price, QuantityInStock, [Description], CoverImageURL, SubCategoryID) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -148,7 +149,7 @@ public class BookDAOimp implements BookDAO {
     }
     
     private Book convertToBook(ResultSet res) throws SQLException {
-    Book book = new Book();
+    Book book = new Book(); // عرفت كونستركتور فاضي عشان حاجة زي كده 
     book.setBookId(res.getString("BookID"));
     book.setTitle(res.getString("Title"));
     book.setAuthor(res.getString("Author"));

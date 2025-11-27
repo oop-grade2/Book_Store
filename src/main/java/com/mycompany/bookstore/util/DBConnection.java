@@ -5,10 +5,13 @@ import java.sql.SQLException;
 
 // url for most ms sql server is "jdbc:sqlserver://hostname\\instance:port;databseName=dbName"
 public class DBConnection { 
-    private static final String url = "jdbc:sqlserver://REHAM-PC\\SQLEXPRESS"
-            + ":1433;databaseName=Book_Store;encrypt=true;trustServerCertificate=true";
-    private static final String user = "Book_StoreDB";
-    private static final String password = "12345";
+    /*private static final String url = "jdbc:sqlserver://REHAM-PC\\SQLEXPRESS"
+            + ":1433;databaseName=Book_Store;encrypt=true;trustServerCertificate=true";*/ 
+    
+    private static final String url = "jdbc:sqlserver://REHAM-PC\\MSSQLEXPRESS;"
+            + "databaseName=Book_Store;encrypt=true;trustServerCertificate=true";
+    private static final String user = "sa";
+    private static final String password = "sa123456";
 
     public static Connection getConnection(){
         try {

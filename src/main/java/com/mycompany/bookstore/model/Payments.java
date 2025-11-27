@@ -3,15 +3,28 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Payments {
-    private int paymentId;
+    private Integer paymentId;
     private BigDecimal amount;
     private String paymentMethod;
     private LocalDate transactionDate;
    
     private Orders order; // one to one
 
-    public Payments(BigDecimal amount, String paymentMethod, 
-            LocalDate transactionDate, Orders order) {
+    
+    public Payments() {
+    }
+    
+    public Payments(BigDecimal amount, String paymentMethod, LocalDate transactionDate, Orders order) {
+        this.paymentId = null;         
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.transactionDate = transactionDate;
+        this.order = order;
+    }
+
+        // to retrieve data from database
+    public Payments(Integer paymentId, BigDecimal amount, String paymentMethod, LocalDate transactionDate, Orders order) {
+        this.paymentId = paymentId;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.transactionDate = transactionDate;
@@ -56,6 +69,17 @@ public class Payments {
 
     public void setOrder(Orders order) {
         this.order = order;
+    }
+    
+    public boolean isPaid() {
+        if (paymentMethod == null) return false;
+
+        if (paymentMethod.equalsIgnoreCase("PAID")) 
+            return true;
+        else if (paymentMethod.equalsIgnoreCase("SUCCESS")) 
+            return true;
+
+    return false;
     }
     
 }

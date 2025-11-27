@@ -8,6 +8,17 @@ public class OrderItems {
     private Orders order; // many to one
     private Book book; // many to one
 
+    public OrderItems() {
+    }
+    
+    public OrderItems(int quantity, Orders order, Book book) {
+        this.quantity = quantity;
+        this.order = order;
+        this.book = book;
+        this.totalPrice = calculateTotalPrice();
+    }
+
+    // to retrieve data from database
     public OrderItems(int quantity, BigDecimal totalPrice, Orders order, Book book) {
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -21,6 +32,7 @@ public class OrderItems {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.totalPrice = calculateTotalPrice();
     }
 
     public BigDecimal getTotalPrice() {
@@ -45,6 +57,15 @@ public class OrderItems {
 
     public void setBook(Book book) {
         this.book = book;
+        this.totalPrice = calculateTotalPrice();
+    }
+    
+    public BigDecimal calculateTotalPrice() {
+        
+        if(book == null || book.getPrice() == null) 
+            return BigDecimal.ZERO;
+        
+        return book.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
     
 }

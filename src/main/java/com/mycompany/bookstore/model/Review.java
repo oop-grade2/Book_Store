@@ -11,6 +11,9 @@ public class Review {
     private Book book;         // many to one
     private Customer customer; // mant to one
 
+    public Review() {
+    }
+    
     public Review(String reviewText, BigDecimal rating, LocalDate reviewDate, 
             Book book, Customer customer) {
         this.reviewText = reviewText;
@@ -19,6 +22,12 @@ public class Review {
         this.book = book;
         this.customer = customer;
     }
+    
+    public Review(int reviewId, String reviewText, BigDecimal rating, 
+            LocalDate reviewDate, Book book, Customer customer) {
+    this(reviewText, rating, reviewDate, book, customer);
+    this.reviewId = reviewId;
+}
 
     public int getReviewId() {
         return reviewId;
@@ -68,4 +77,9 @@ public class Review {
         this.customer = customer;
     }
     
+    
+    public boolean isPositive() {
+        return (rating != null && rating.compareTo(BigDecimal.valueOf(3)) > 0);
+    }
+
 }

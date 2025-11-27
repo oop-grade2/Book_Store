@@ -9,15 +9,15 @@ public class SubCategory {
     private Category category; //many to one relationship 
     private List<Book> books ; //zero to many relationship
     
+    public SubCategory()
+    {         
+        this.books = new ArrayList<>();
+    }
+    
     public SubCategory(String subCategoryName, Category category) {
         this();
         this.subCategoryName = subCategoryName;
         this.category = category;
-    }
-
-    public SubCategory()
-    {         
-        this.books = new ArrayList<>();
     }
     
     public int getSubCategoryId() {
@@ -51,5 +51,6 @@ public class SubCategory {
     public void setBooks(List<Book> books) {
         this.books = books;
     } 
+    
     
 }
