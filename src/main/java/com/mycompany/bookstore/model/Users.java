@@ -13,6 +13,8 @@ public abstract class Users {
     private String passwordHash;
     private LocalDate accDateCreated;
     private LocalDate accDateUpdated;
+    
+    private boolean mustChangePassword = false;
 
     public Users(int userId, String firstName, String lastName, String phoneNumber, 
             String email, String userName, String passwordPlain, LocalDate accDateCreated, 
@@ -28,7 +30,7 @@ public abstract class Users {
         this.accDateUpdated = accDateUpdated;
     }
     
-        public Users() {
+    public Users() {
         this.userId = 0;
         this.firstName = "";
         this.lastName = "";
@@ -88,12 +90,18 @@ public abstract class Users {
         this.userName = userName;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    // عشان اليوزر يتنيل يغيرها ف هتتشفر
+    public void setPlainPassword(String plainPassword) {
+        this.passwordHash = PasswordUtil.hashPassword(plainPassword);
     }
 
-    public void setPasswordHash(String password) {
-        this.passwordHash = PasswordUtil.hashPassword(password);
+    //  دي لو عايزين نجيبها من الداتابيبز ف عشان منشفرهاش مرتين
+    public void setStoredPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+    
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public LocalDate getAccDateCreated() {
@@ -113,6 +121,17 @@ public abstract class Users {
     }
        
     public boolean checkPassword(String plainPassword) {
+        if (this.passwordHash == null || this.passwordHash.isEmpty()) 
+            return false;
+        
         return PasswordUtil.checkPassword(plainPassword, this.passwordHash);
+    }
+    
+    public boolean getMustChangePassword() {
+        return mustChangePassword; 
+    }
+    
+    public void setMustChangePassword(boolean mustChangePassword) {
+        this.mustChangePassword = mustChangePassword; 
     }
 }

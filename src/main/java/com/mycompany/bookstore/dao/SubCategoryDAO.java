@@ -8,4 +8,5 @@ public interface SubCategoryDAO {
     void deleteSubCategory(int subCategoryId);
     SubCategory getSubCategoryById(int subCategoryId);
     List<SubCategory> getAllSubCategories();
+    List<SubCategory> getSubCategoriesByCategoryId(int categoryId);
 }

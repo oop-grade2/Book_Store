@@ -1,16 +1,22 @@
 package com.mycompany.bookstore.daoImp;
+
 import com.mycompany.bookstore.dao.BookDAO;
+import com.mycompany.bookstore.dao.SubCategoryDAO; 
 import com.mycompany.bookstore.model.Book;
+import com.mycompany.bookstore.model.SubCategory;
+
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.math.BigDecimal;
 
 public class BookDAOimp implements BookDAO {
     private Connection connection;
+    private SubCategoryDAO subCategoryDAO;
 
-    public BookDAOimp(Connection connection) {
+    public BookDAOimp(Connection connection, SubCategoryDAO subCategoryDAO) {
         this.connection = connection;
+        this.subCategoryDAO = subCategoryDAO;
     }
     
     
@@ -22,19 +28,27 @@ public class BookDAOimp implements BookDAO {
         int year = book.getPublicationDate().getYear();
 
         String sql = "SELECT COUNT(*) FROM Book";
-        Statement statement = connection.createStatement();
-        ResultSet res = statement.executeQuery(sql);
+        try(Statement statement = connection.createStatement();
+        ResultSet res = statement.executeQuery(sql)){
         int serial = 1;
-        
+
         if (res.next()) {
             serial = res.getInt(1) + 1;
         }
         return firstTwo + serial + year;
+        }
     }
 
     
      @Override
     public void addBook(Book book) {
+        
+        // عاملين لها تشيك كده كده في الداتابيز بس تأكيدا يعني
+        if (book.getPrice() == null || book.getPrice().compareTo(BigDecimal.ZERO) < 0
+                || book.getQuantityInStock() < 0) {
+            throw new IllegalArgumentException("Price and Quantity must be >= 0");
+        }
+        
         try {
             book.setBookId(generateBookId(book));
 
@@ -53,21 +67,31 @@ public class BookDAOimp implements BookDAO {
                 statement.setInt(7, book.getQuantityInStock());
                 statement.setString(8, book.getDescription());
                 statement.setString(9, book.getCoverImageURL());
-                statement.setInt(10, book.getSubcategory().getSubCategoryId());
+                
+                if (book.getSubcategory() != null) {
+                    statement.setInt(10, book.getSubcategory().getSubCategoryId());
+                } else {
+                    statement.setNull(10, Types.INTEGER);
+                }
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            System.out.println("Error! Please try again");
+            System.out.println("Error! Cannot add book.");
             e.printStackTrace();
         }
-}
-    
+    }
+
     
     @Override
     public void updateBook(Book book) {
-        String sql = "UPDATE Book SET Title=?, Author=?, Genre=?, "
-                + "PublicationDate=?, Price=?, QuantityInStock=?, [Description]=?, "
-                + "CoverImageURL=?, SubCategoryID=? WHERE BookID=?";
+        if (book.getPrice() == null || book.getPrice().compareTo(BigDecimal.ZERO) < 0
+                || book.getQuantityInStock() < 0) {
+            throw new IllegalArgumentException("Price and Quantity must be >= 0");
+        }
+        
+        String sql = "UPDATE Book SET Title=?, Author=?, Genre=?, PublicationDate=?, Price=?, "
+                + "QuantityInStock=?, [Description]=?, CoverImageURL=?, SubCategoryID=? WHERE BookID=?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, book.getTitle());
             statement.setString(2, book.getAuthor());
@@ -77,91 +101,102 @@ public class BookDAOimp implements BookDAO {
             statement.setInt(6, book.getQuantityInStock());
             statement.setString(7, book.getDescription());
             statement.setString(8, book.getCoverImageURL());
-            statement.setInt(9, book.getSubcategory().getSubCategoryId());
+            
+            if (book.getSubcategory() != null) {
+                statement.setInt(9, book.getSubcategory().getSubCategoryId());
+            } else {
+                statement.setNull(9, Types.INTEGER);
+            }
             statement.setString(10, book.getBookId());
             statement.executeUpdate();
+            
         } catch (SQLException e) {
-            System.out.println("Error! Please try again");
+            System.out.println("Error! Cannot update book.");
             e.printStackTrace();
         }
-}
+    }
 
     
     @Override
     public void deleteBook(String bookId) {
         String sql = "DELETE FROM Book WHERE BookID=?";
+        
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, bookId);
             statement.executeUpdate();
+            
         } catch (SQLException e) {
-            System.out.println("Error! Please try again");
+            System.out.println("Error! Cannot delete book.");
             e.printStackTrace();
-    }
+        }
 } 
 
     @Override
     public Book getBookById(String bookId) {
-        String sql = "SELECT * FROM Book WHERE bookId=?";
+        String sql = "SELECT * FROM Book WHERE BookID=?";
+        
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, bookId);
             ResultSet res = statement.executeQuery();
+            
             if (res.next()) {
                 return convertToBook(res);
             }
+            
         } catch (SQLException e) {
-            System.out.println("Error! Please try again");
+            System.out.println("Error! Cannot get book.");
             e.printStackTrace();
         }
+        
         return null;
     }
-    
-    @Override
-    public List<Book> getBooksByTitle(String title) {
-    List<Book> books = new ArrayList<>();
-    String sql = "SELECT * FROM Book WHERE Title LIKE ?";
-    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setString(1, "%" + title + "%");
-        ResultSet res = statement.executeQuery();
-        while (res.next()) {
-            books.add(convertToBook(res)); 
-        }
-    } catch (SQLException e) {
-        System.out.println("Error! Please try again");
-        e.printStackTrace();
-    }
-    return books;
-}
+   
 
     @Override
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
+        
         String sql = "SELECT * FROM Book";
+        
         try (Statement statement = connection.createStatement()) {
             ResultSet res = statement.executeQuery(sql);
+            
             while (res.next()) {
                 books.add(convertToBook(res));
             }
+            
         } catch (SQLException e) {
-            System.out.println("Error! Please try again");
+            System.out.println("Error! Cannot get books.");
             e.printStackTrace();
         }
+        
         return books;
     }
     
     private Book convertToBook(ResultSet res) throws SQLException {
-    Book book = new Book(); // عرفت كونستركتور فاضي عشان حاجة زي كده 
-    book.setBookId(res.getString("BookID"));
-    book.setTitle(res.getString("Title"));
-    book.setAuthor(res.getString("Author"));
-    book.setGenre(res.getString("Genre"));
-    book.setPublicationDate(res.getDate("PublicationDate").toLocalDate());
-    book.setPrice(res.getBigDecimal("Price"));
-    book.setQuantityInStock(res.getInt("QuantityInStock"));
-    book.setDescription(res.getString("Description"));
-    book.setCoverImageURL(res.getString("CoverImageURL"));
+        Book book = new Book();
+        book.setBookId(res.getString("BookID"));
+        book.setTitle(res.getString("Title"));
+        book.setAuthor(res.getString("Author"));
+        book.setGenre(res.getString("Genre"));
+        
+        Date publicationDate = res.getDate("PublicationDate");
+        if (publicationDate != null) {
+            book.setPublicationDate(publicationDate.toLocalDate());
+        } else {
+            book.setPublicationDate(null); 
+        }
+        
+        book.setPrice(res.getBigDecimal("Price"));
+        book.setQuantityInStock(res.getInt("QuantityInStock"));
+        book.setDescription(res.getString("Description"));
+        book.setCoverImageURL(res.getString("CoverImageURL"));
 
-    //int subCategoryId =res.getInt("SubCategoryID");
-    // book.setSubcategory(subCategoryDAO.getSubCategoryById(subCategoryId));
-    return book;
+        int subCategoryId = res.getInt("SubCategoryID");
+        if (!res.wasNull()) {
+            SubCategory sub = subCategoryDAO.getSubCategoryById(subCategoryId);
+            book.setSubcategory(sub); 
+        }
+        return book;
     }
 }
