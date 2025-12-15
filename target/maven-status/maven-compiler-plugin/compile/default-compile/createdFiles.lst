@@ -17,6 +17,7 @@ com\mycompany\bookstore\gui\CustomerAccFrame$5.class
 com\mycompany\bookstore\gui\AdminAccFrame.class
 com\mycompany\bookstore\gui\CustomerAccFrame$2.class
 com\mycompany\bookstore\gui\OrdersFrame$2.class
+com\mycompany\bookstore\gui\BooksTableFrame$15.class
 com\mycompany\bookstore\model\WishList.class
 com\mycompany\bookstore\util\PasswordUtil.class
 com\mycompany\bookstore\dao\SubCategoryDAO.class

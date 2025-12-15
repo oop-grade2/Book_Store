@@ -104,13 +104,29 @@ public class BooksTableFrame extends javax.swing.JFrame {
 
     };
    public BooksTableFrame(int customerID, List<String> customerFakeOrders) {
-    initComponents();
     this.isCustomer = true;
     this.customerID = customerID;
     this.fakeOrders = customerFakeOrders;
+
+    initComponents(); // مهم بعد ما تعين isCustomer
+
+    // لو كاستمر، خلي الجدول read-only
+    if (isCustomer) {
+        booksTable.setModel(new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"BookID", "Title", "Author", "Date", "Price", "Quantity"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // كله read-only
+            }
+        });
+    }
+
     setupForCustomer();
     loadBooksTable();
 }
+
 
 private void setupForCustomer() {
     booksTable.setRowSelectionAllowed(true);   
