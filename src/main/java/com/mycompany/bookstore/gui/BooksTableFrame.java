@@ -11,6 +11,15 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
+
+
 
 
 /**
@@ -18,7 +27,33 @@ import javax.swing.table.DefaultTableModel;
  * @author ALFAZAIRI
  */
 public class BooksTableFrame extends javax.swing.JFrame {
-    
+    private TableRowSorter<DefaultTableModel> sorter;
+
+   public static java.util.List<String> getFakeOrders() {
+    return fakeOrders;
+}
+
+    private int editingRow = -1;
+    private boolean isCustomer = false;
+    private int customerID = 0;
+    private static List<String> fakeOrders = new ArrayList<>();
+    private java.util.Map<String, Integer> booksQuantities;
+    private void showFakeOrders() {
+    if (fakeOrders.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No orders yet!");
+        return;
+    }
+
+    StringBuilder sb = new StringBuilder("Fake Orders:\n\n");
+    for (int i = 0; i < fakeOrders.size(); i++) {
+        sb.append((i + 1) + ". " + fakeOrders.get(i) + "\n");
+    }
+
+    JOptionPane.showMessageDialog(this, sb.toString());
+}
+
+
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BooksTableFrame.class.getName());
 
     /**
@@ -27,43 +62,36 @@ public class BooksTableFrame extends javax.swing.JFrame {
 
     public BooksTableFrame() {
     initComponents();
-     setupAutoID(); 
-}
-private void setupAutoID() {
-    DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
 
-    int titleCol = 1;  
-    int authorCol = 2; 
-    int idCol = 0;     
+      booksTable.setModel(new DefaultTableModel(
+        new Object[][]{},
+        new String[]{"BookID", "Title", "Author", "Date", "Price", "Quantity"}
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
 
-    model.addTableModelListener(e -> {
-        int row = e.getFirstRow();
-        int col = e.getColumn();
+            // BookID دايمًا مقفول
+            if (column == 0) return false;
 
-        if(col == titleCol || col == authorCol){
-            Object idObj = model.getValueAt(row, idCol);
-            String currentID = idObj == null ? "" : idObj.toString();
+            Object bookID = getValueAt(row, 0);
 
-            // لو BookID فاضي فقط، نولّد ID جديد
-            if(currentID.isEmpty()) {
-                String title = (String) model.getValueAt(row, titleCol);
-                String author = (String) model.getValueAt(row, authorCol);
-
-                if(title != null && !title.isEmpty() && author != null && !author.isEmpty()){
-                    String id = "BK-" + title.substring(0,1).toUpperCase()
-                                     + author.substring(0,1).toUpperCase()
-                                     + "-" + System.currentTimeMillis() % 10000;
-
-                    model.setValueAt(id, row, idCol);
-                }
+            // صف جديد (لسه متحفظش)
+            if (bookID == null || bookID.toString().trim().isEmpty()) {
+                return true;
             }
+            // صف محفوظ → مسموح التعديل بس لو في Update Mode
+            return row == editingRow;
         }
     });
+      DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
+    sorter = new TableRowSorter<>(model);
+    booksTable.setRowSorter(sorter);
+     loadBooksTable();
+     btnOrder.setVisible(false);
+     btnFavorite.setVisible(false);
+     jButton6.setVisible(false); 
+
 }
-
-
-
-
 
     DefaultTableModel model = new DefaultTableModel(
         new String[]{"BookID", "Title", "Author", "Genre", "Price"}, 0
@@ -72,16 +100,37 @@ private void setupAutoID() {
         public boolean isCellEditable(int row, int column) {
             return true; 
         }
+    
 
     };
+   public BooksTableFrame(int customerID, List<String> customerFakeOrders) {
+    initComponents();
+    this.isCustomer = true;
+    this.customerID = customerID;
+    this.fakeOrders = customerFakeOrders;
+    setupForCustomer();
+    loadBooksTable();
+}
 
-  
+private void setupForCustomer() {
+    booksTable.setRowSelectionAllowed(true);   
+    booksTable.setColumnSelectionAllowed(false);
+    booksTable.setCellSelectionEnabled(false);
 
+    // نخفي أزرار الادمن
+    jButton1.setVisible(false);
+    jButton2.setVisible(false);
+    jButton3.setVisible(false); // Add
+    jButton4.setVisible(false); // Update
+    jButton5.setVisible(false); // Delete
+    
+    btnOrder.setVisible(true);
+    btnFavorite.setVisible(true);
+    jButton6.setVisible(true);
+    
+}
 
-
-
-
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +146,14 @@ private void setupAutoID() {
         booksTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        btnOrder = new javax.swing.JButton();
+        btnFavorite = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        searchField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,20 +180,20 @@ private void setupAutoID() {
 
         booksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "BookId", "Title", "Author", "Genre", "Price"
+                "BookId", "Title", "Author", "date", "Price", "Quantity"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -163,28 +220,113 @@ private void setupAutoID() {
             }
         });
 
+        jButton3.setText("Add");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Update");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        btnOrder.setText("order");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+
+        btnFavorite.setText("Add to Favourites");
+        btnFavorite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFavoriteActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Search:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addGap(12, 12, 12)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnOrder)
+                .addGap(48, 48, 48)
+                .addComponent(btnFavorite)
+                .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOrder)
+                    .addComponent(btnFavorite)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -197,63 +339,304 @@ private void setupAutoID() {
     try (Connection con = DBConnection.getConnection()) {
         con.setAutoCommit(false);
 
-        String updateQuery = "UPDATE Book SET Title=?, Author=?, Genre=?, Price=? WHERE BookID=?";
-        String insertQuery = "INSERT INTO Book(BookID, Title, Author, Genre, Price) VALUES(?,?,?,?,?)";
+        String checkQuery = "SELECT COUNT(*) FROM Book WHERE BookID = ?";
+        String insertQuery =
+            "INSERT INTO Book (BookID, Title, Author, Genre, PublicationDate, Price, QuantityInStock, Description, CoverImageURL, SubCategoryID) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String updateQuery = "UPDATE Book SET Title=?, Author=?, Genre=?, PublicationDate=?, Price=?, QuantityInStock=? WHERE BookID=?";
 
-    
-        PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+        PreparedStatement psCheck  = con.prepareStatement(checkQuery);
         PreparedStatement psInsert = con.prepareStatement(insertQuery);
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Object idObj = model.getValueAt(i, 0);
-            String bookID = idObj == null ? "" : idObj.toString().trim();
+        int rowCount = booksTable.getRowCount();
 
-            String title  = model.getValueAt(i, 1) == null ? "" : model.getValueAt(i, 1).toString();
-            String author = model.getValueAt(i, 2) == null ? "" : model.getValueAt(i, 2).toString();
-            String genre  = model.getValueAt(i, 3) == null ? "" : model.getValueAt(i, 3).toString();
-            double price  = model.getValueAt(i, 4) == null ? 0 : Double.parseDouble(model.getValueAt(i, 4).toString());
+        for (int i = 0; i < rowCount; i++) {
+            // تحويل index الجدول إلى index الـ model
+            int modelRow = booksTable.convertRowIndexToModel(i);
 
-            if(bookID.isEmpty()) {
-                // توليد ID جديد إذا مفيش
-                bookID = "BK-" + System.currentTimeMillis();
-                model.setValueAt(bookID, i, 0);
+            String bookID = model.getValueAt(modelRow, 0) == null ? "" : model.getValueAt(modelRow, 0).toString().trim();
+            String title  = model.getValueAt(modelRow, 1) == null ? "" : model.getValueAt(modelRow, 1).toString().trim();
+            String author = model.getValueAt(modelRow, 2) == null ? "" : model.getValueAt(modelRow, 2).toString().trim();
+            String rawDate= model.getValueAt(modelRow, 3) == null ? "" : model.getValueAt(modelRow, 3).toString().trim();
+            Object priceObj = model.getValueAt(modelRow, 4);
+            Object qtyObj   = model.getValueAt(modelRow, 5);
 
+            if (title.isEmpty() || author.isEmpty()) continue;
+
+            if (bookID.isEmpty()) {
+                bookID = "BK-" + UUID.randomUUID().toString().substring(0, 8);
+                model.setValueAt(bookID, modelRow, 0);
+            }
+
+            int quantity = 0;
+            if (qtyObj != null && !qtyObj.toString().trim().isEmpty()) {
+                try {
+                    quantity = Integer.parseInt(qtyObj.toString().trim());
+                } catch (NumberFormatException ex) {
+                    quantity = 0;
+                }
+            } else {
+                try (PreparedStatement psOld = con.prepareStatement("SELECT QuantityInStock FROM Book WHERE BookID=?")) {
+                    psOld.setString(1, bookID);
+                    ResultSet rsOld = psOld.executeQuery();
+                    if(rsOld.next()) quantity = rsOld.getInt(1);
+                }
+            }
+
+            String pubDate = rawDate.isEmpty() ? LocalDate.now().toString() : tryParseDate(rawDate);
+
+            psCheck.setString(1, bookID);
+            ResultSet rs = psCheck.executeQuery();
+            rs.next();
+
+            if (rs.getInt(1) == 0) {
                 psInsert.setString(1, bookID);
                 psInsert.setString(2, title);
                 psInsert.setString(3, author);
-                psInsert.setString(4, genre);
-                psInsert.setDouble(5, price);
+                psInsert.setString(4, "");
+                psInsert.setString(5, pubDate);
+                psInsert.setDouble(6, priceObj == null ? 0.0 : Double.parseDouble(priceObj.toString()));
+                psInsert.setInt(7, quantity);
+                psInsert.setString(8, "");
+                psInsert.setString(9, "");
+                psInsert.setNull(10, java.sql.Types.INTEGER);
+
                 psInsert.executeUpdate();
             } else {
-                psUpdate.setString(1, title);
-                psUpdate.setString(2, author);
-                psUpdate.setString(3, genre);
-                psUpdate.setDouble(4, price);
-                psUpdate.setString(5, bookID);
-                psUpdate.executeUpdate();
+                try (PreparedStatement psUpdate = con.prepareStatement(updateQuery)) {
+                    psUpdate.setString(1, title);
+                    psUpdate.setString(2, author);
+                    psUpdate.setString(3, "");
+                    psUpdate.setString(4, pubDate);
+                    psUpdate.setDouble(5, priceObj == null ? 0.0 : Double.parseDouble(priceObj.toString()));
+                    psUpdate.setInt(6, quantity);
+                    psUpdate.setString(7, bookID);
+
+                    psUpdate.executeUpdate();
+                }
             }
         }
 
         con.commit();
-        JOptionPane.showMessageDialog(this, "Changes saved successfully!");
-
-        // جلب البيانات بعد الحفظ
-        loadBooksTable();
+        JOptionPane.showMessageDialog(this, "✔️ Saved successfully");
 
     } catch (Exception e) {
+        e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
 
-
-
-
+    editingRow = -1;
+    booksTable.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+private String tryParseDate(String rawDate){
+    try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(rawDate, formatter).toString();
+    } catch (Exception ex1) {
+        try { 
+            return LocalDate.parse(rawDate).toString(); 
+        } catch (Exception ex2) { 
+            return LocalDate.now().toString(); 
+        }
+    }
+}
+
+
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
          new AdminFrame().setVisible(true);  
            this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      //   TODO add your handling code here:
+     // إضافة صف فارغ جديد في نهاية الجدول
+    // إضافة صف فارغ جديد في نهاية الجدول
+    DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
+    
+    // عدد الأعمدة = 6 (BookID, Title, Author, date, Price, Quantity)
+    // خلي BookID null، وابقى باقي الأعمدة null كمان ما فيش 0 افتراضي
+    model.addRow(new Object[]{null, null, null, null, null, null});
+    
+    // نقل التركيز للصف الجديد
+    int lastRow = model.getRowCount() - 1;
+    booksTable.setRowSelectionInterval(lastRow, lastRow);
+    booksTable.scrollRectToVisible(booksTable.getCellRect(lastRow, 0, true));
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    int row = booksTable.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "choose a book to update");
+        return;
+    }
+
+    DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
+    Object idObj = model.getValueAt(row, 0);
+
+    if (idObj == null || idObj.toString().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "this book hasn't been saved yet");
+        return;
+    }
+
+         editingRow = row;
+
+    // إجبار الجدول يعمل Refresh
+    booksTable.repaint();
+
+    JOptionPane.showMessageDialog(this, "✏️ change data then click Save");
+
+
+
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    int row = booksTable.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "choose a book to delete");
+        return;
+    }
+
+    DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
+    Object idObj = model.getValueAt(row, 0);
+
+    if (idObj == null || idObj.toString().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "this book hasn't been saved yet");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Are you sure to delete this book?",
+        "Confirm Delete",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirm != JOptionPane.YES_OPTION) return;
+
+    String bookID = idObj.toString();
+
+    try (Connection con = DBConnection.getConnection()) {
+
+        PreparedStatement ps =
+            con.prepareStatement("DELETE FROM Book WHERE BookID=?");
+
+        ps.setString(1, bookID);
+        ps.executeUpdate();
+
+        model.removeRow(row);
+
+        JOptionPane.showMessageDialog(this, "🗑️ Deleted successfully");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new CustomerFrame().setVisible(true);  
+           this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        // TODO add your handling code here:
+    int row = booksTable.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a book first");
+        return;
+    }
+
+    String bookID = booksTable.getValueAt(row, 0).toString();
+    String title = booksTable.getValueAt(row, 1).toString();
+    double price = Double.parseDouble(booksTable.getValueAt(row, 4).toString());
+
+    // 1️⃣ نطلب من العميل الكمية
+    String qtyStr = JOptionPane.showInputDialog(this, "Enter quantity to order:");
+    if (qtyStr == null) return; // لو ضغط cancel
+    int quantity;
+    try {
+        quantity = Integer.parseInt(qtyStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid quantity!");
+        return;
+    }
+
+    // 2️⃣ نتحقق من الكمية المتاحة
+    int availableQty = Integer.parseInt(booksTable.getValueAt(row, 5).toString());
+    if (quantity > availableQty) {
+        JOptionPane.showMessageDialog(this, "Not enough stock! Available: " + availableQty);
+        return;
+    }
+
+    // 3️⃣ تحديث الكمية في الجدول
+    booksTable.setValueAt(availableQty - quantity, row, 5);
+
+    // 4️⃣ إضافة الأوردر للقائمة المشتركة
+    String orderInfo = "BookID: " + bookID + ", Title: " + title + ", Price: " + price + ", Qty: " + quantity;
+    fakeOrders.add(orderInfo);
+
+    JOptionPane.showMessageDialog(this, "✅ Order added to your orders list!");
+    try (Connection con = DBConnection.getConnection()) {
+    PreparedStatement ps = con.prepareStatement(
+        "UPDATE Book SET QuantityInStock = ? WHERE BookID = ?"
+    );
+
+    ps.setInt(1, availableQty - quantity);
+    ps.setString(2, bookID);
+    ps.executeUpdate();
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, e.getMessage());
+}
+    }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void btnFavoriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoriteActionPerformed
+        // TODO add your handling code here:
+    int row = booksTable.getSelectedRow();
+
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a book first");
+        return;
+    }
+
+    String title = booksTable.getValueAt(row, 1).toString();
+
+    JOptionPane.showMessageDialog(
+        this,
+        "❤️ \"" + title + "\" added to favourites"
+    );
+
+    }//GEN-LAST:event_btnFavoriteActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        // TODO add your handling code here:
+    if (sorter == null) return;
+
+    String text = searchField.getText().trim();
+
+    if (text.isEmpty()) {
+        sorter.setRowFilter(null);
+    } else {
+        sorter.setRowFilter(
+            RowFilter.regexFilter("(?i).*" + text + ".*")
+        );
+    }
+    }//GEN-LAST:event_searchFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -282,11 +665,19 @@ private void setupAutoID() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTable booksTable;
+    private javax.swing.JButton btnFavorite;
+    private javax.swing.JButton btnOrder;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 
     public JTable getBooksTable() {
@@ -296,19 +687,22 @@ private void setupAutoID() {
 
 void loadBooksTable() {
     try (Connection con = DBConnection.getConnection();
-         PreparedStatement ps = con.prepareStatement("SELECT * FROM Book");
+         PreparedStatement ps = con.prepareStatement(
+             "SELECT BookID, Title, Author, PublicationDate, Price, QuantityInStock FROM Book"
+         );
          ResultSet rs = ps.executeQuery()) {
 
         DefaultTableModel model = (DefaultTableModel) booksTable.getModel();
-        model.setRowCount(0); // فضّي الجدول قبل التحميل
+        model.setRowCount(0);
 
         while (rs.next()) {
             model.addRow(new Object[]{
                 rs.getString("BookID"),
                 rs.getString("Title"),
                 rs.getString("Author"),
-                rs.getString("Genre"),
-                rs.getDouble("Price")
+                rs.getString("PublicationDate"),
+                rs.getDouble("Price"),
+                rs.getInt("QuantityInStock")
             });
         }
 
