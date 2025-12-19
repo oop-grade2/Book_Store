@@ -1,52 +1,63 @@
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\AdminsDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\BookDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\CategoryDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\CustomerDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\OrderItemsDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\OrdersDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\PaymentsDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\PreferenceDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\ReviewDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\ShippingDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\SubCategoryDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\dao\WishListDAO.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\AdminsDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\BookDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\CategoryDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\CustomerDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\OrderItemsDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\OrdersDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\PaymentsDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\PreferenceDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\ReviewDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\ShippingDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\SubCategoryDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\daoImp\WishListDAOimp.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\AddCustomerFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\AdminAccFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\AdminFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\BooksTableFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CreateAccountFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerAccFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerTableFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\LoginFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\OrdersFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\UsersTableFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\main\BookStore.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Admins.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Book.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Category.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Customer.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\OrderItems.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Orders.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Payments.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Preference.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Review.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Shipping.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\SubCategory.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Users.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\WishList.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\service\AdminsService.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\util\DBConnection.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\util\PasswordUtil.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\AdminsDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\BookDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\CategoryDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\CustomerDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\OrderItemsDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\OrdersDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\PaymentsDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\PreferenceDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\ReviewDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\ShippingDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\SubCategoryDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\dao\WishListDAO.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\AdminsDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\BookDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\CategoryDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\CustomerDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\OrderItemsDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\OrdersDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\PaymentsDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\PreferenceDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\ReviewDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\ShippingDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\SubCategoryDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\daoImp\WishListDAOimp.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\AddCustomerFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\AdminAccFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\AdminFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\BooksTableFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\CreateAccountFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\CustomerAccFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\CustomerFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\CustomerTableFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\LoginFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\OrdersFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\gui\UsersTableFrame.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\main\BookStore.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Admins.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Book.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Category.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Customer.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\OrderItems.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Orders.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Payments.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Preference.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Review.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Shipping.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\SubCategory.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\Users.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\model\WishList.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\AdminsService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\BookService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\CategoryService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\CustomerService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\OrderItemsService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\OrdersService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\PaymentsService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\PreferenceService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\ReviewService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\ShippingService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\SubCategoryService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\service\WishListService.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\util\DBConnection.java
+C:\Users\Pc\Documents\NetBeansProjects\BookStore\src\main\java\com\mycompany\bookstore\util\PasswordUtil.java

@@ -19,7 +19,9 @@ public class BookDAOimp implements BookDAO {
         this.subCategoryDAO = subCategoryDAO;
     }
     
-    
+        public BookDAOimp(Connection connection) {
+        this.connection = connection;
+    }
     private String generateBookId(Book book) throws SQLException {
         String firstTwo = book.getTitle().length() >= 2 ?
                 book.getTitle().substring(0, 2).toUpperCase() :
@@ -43,7 +45,6 @@ public class BookDAOimp implements BookDAO {
      @Override
     public void addBook(Book book) {
         
-        // عاملين لها تشيك كده كده في الداتابيز بس تأكيدا يعني
         if (book.getPrice() == null || book.getPrice().compareTo(BigDecimal.ZERO) < 0
                 || book.getQuantityInStock() < 0) {
             throw new IllegalArgumentException("Price and Quantity must be >= 0");
@@ -52,7 +53,6 @@ public class BookDAOimp implements BookDAO {
         try {
             book.setBookId(generateBookId(book));
 
-            // ضيفوا هنا نفس الاسماء اللي في الداتابيز عشان دي اللي بتتعامل معاها
             String sql = "INSERT INTO Book (BookID, Title, Author, Genre, PublicationDate, "
                     + "Price, QuantityInStock, [Description], CoverImageURL, SubCategoryID) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -2,6 +2,7 @@ package com.mycompany.bookstore.daoImp;
 
 import com.mycompany.bookstore.dao.CategoryDAO;
 import com.mycompany.bookstore.model.Category;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -25,7 +25,7 @@ public class WishListDAOimp implements WishListDAO {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, item.getCustomer().getUserId());
             statement.setString(2, item.getBook().getBookId());
-            statement.setDate(3, Date.valueOf(item.getDateAdded()));
+            statement.setDate(3, java.sql.Date.valueOf(item.getDateAdded()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
