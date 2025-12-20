@@ -8,18 +8,25 @@ package com.mycompany.bookstore.gui;
  *
  * @author ALFAZAIRI
  */
-public class CustomerAccFrame extends javax.swing.JFrame {
+public class CustomerInfoFrame extends javax.swing.JFrame {
+     private String bookId;
+    private int quantity;
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CustomerAccFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CustomerInfoFrame.class.getName());
 
     /**
      * Creates new form CustomerAccFrame
      */
-    public CustomerAccFrame() {
+    public CustomerInfoFrame() {
         initComponents();
         //to make other box invisible from start
          jLabel5.setVisible(false);
     jTextField2.setVisible(false);
+    }
+    public CustomerInfoFrame(String bookId, int quantity) {
+        this.bookId = bookId;
+        this.quantity = quantity;
+        initComponents();
     }
 
     /**
@@ -45,7 +52,7 @@ public class CustomerAccFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Coplete your information as a customer");
+        jLabel1.setText("Coplete your information to varify order");
 
         jLabel2.setText("Address:");
 
@@ -58,7 +65,7 @@ public class CustomerAccFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Submit");
+        jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -153,7 +160,7 @@ public class CustomerAccFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
@@ -178,16 +185,7 @@ public class CustomerAccFrame extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-         String selected = jComboBox1.getSelectedItem().toString();
-
-    if (selected.equals("Other")) {
-        jLabel5.setVisible(true);
-        jTextField2.setVisible(true);
-    } else {
-        jLabel5.setVisible(false); 
-        jTextField2.setVisible(false);
-        jTextField2.setText("");         
-    }
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTextField2ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTextField2ComponentHidden
@@ -221,7 +219,7 @@ public class CustomerAccFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CustomerAccFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new CustomerInfoFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,7 +13,7 @@ public class Admins extends Users{
     }    
         
     public Admins(String department, String role, int userId, String firstName, String lastName, String phoneNumber, String email, String userName, String passwordPlain, LocalDate accDateCreated, LocalDate accDateUpdated) {
-        super(userId, firstName, lastName, phoneNumber, email, userName, passwordPlain, accDateCreated, accDateUpdated);
+        super(userId, firstName, lastName, phoneNumber, email, userName,accDateCreated, accDateUpdated);
         this.department = department;
         this.role = role;
     }

@@ -24,7 +24,7 @@ public class Customer extends Users{
             LocalDate accDateUpdated) {
         
         super(userId, firstName, lastName, phoneNumber, email, userName, 
-                passwordPlain, accDateCreated, accDateUpdated);
+                 accDateCreated, accDateUpdated);
         
         this.customerAddress = customerAddress;
         this.communicationPreference = communicationPreference;
@@ -46,4 +46,5 @@ public class Customer extends Users{
     public void setCommunicationPreference(String communicationPreference) {
         this.communicationPreference = communicationPreference;
     }
+
 }

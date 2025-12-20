@@ -13,14 +13,7 @@ import javax.swing.JOptionPane;
  * @author ALFAZAIRI
  */
 public class CustomerFrame extends javax.swing.JFrame {
-    private static List<String> fakeOrders = new ArrayList<>();
-    private void openOrdersFrame() {
-    OrdersFrame ordersFrame = new OrdersFrame();
-    ordersFrame.setLocationRelativeTo(this); 
-    ordersFrame.setVisible(true); 
-    this.setVisible(false); 
-
-}
+ 
 
 
     
@@ -66,7 +59,7 @@ public class CustomerFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("view orders");
+        jButton3.setText("view order items");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -87,9 +80,10 @@ public class CustomerFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton2))))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,14 +110,12 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    int customerID = 1; // بعدين تجيبيه من اللوجين
-    new BooksTableFrame(customerID, fakeOrders).setVisible(true);
+    new BooksFrame(false).setVisible(true); // false = Customer
     this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-     openOrdersFrame();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

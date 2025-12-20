@@ -17,13 +17,13 @@ public class AdminFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminFrame.class.getName());
 
-    private BooksTableFrame tableFrame;
+    private BooksFrame tableFrame;
     /**
      * Creates new form AdminFrame
      */
     public AdminFrame() {
         initComponents();
-       tableFrame = new BooksTableFrame();
+       tableFrame = new BooksFrame();
       
     }
 
@@ -112,9 +112,9 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        BooksTableFrame tableFrame = new BooksTableFrame();
-    tableFrame.setVisible(true);
-    this.dispose();
+       new BooksFrame(true).setVisible(true); // true = Admin
+       this.dispose();
+
         
     }//GEN-LAST:event_jButton8ActionPerformed
 

@@ -4,9 +4,10 @@
  */
 package com.mycompany.bookstore.gui;
 
+import com.mycompany.bookstore.daoImp.CustomerDAOimp;
+import com.mycompany.bookstore.model.Customer;
+import com.mycompany.bookstore.service.CustomerService;
 import com.mycompany.bookstore.util.DBConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +52,6 @@ public class CreateAccountFrame extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -92,13 +92,6 @@ public class CreateAccountFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Customer", " " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,7 +109,7 @@ public class CreateAccountFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(56, 56, 56)
-                                .addComponent(jPasswordField1))
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -127,11 +120,6 @@ public class CreateAccountFrame extends javax.swing.JFrame {
                                     .addComponent(jPasswordField2)
                                     .addComponent(jTextField5)
                                     .addComponent(jTextField6)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                .addComponent(jButton2))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(50, 50, 50)
@@ -139,7 +127,11 @@ public class CreateAccountFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(48, 48, 48)
-                                .addComponent(jTextField4))))
+                                .addComponent(jTextField4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(46, 46, 46))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jLabel1)
@@ -182,9 +174,7 @@ public class CreateAccountFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton2)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -197,85 +187,56 @@ public class CreateAccountFrame extends javax.swing.JFrame {
            this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-//         String choice = (String) jComboBox1.getSelectedItem();
-//
-//    if (choice.equals("Admin")) {
-//        new AdminFrame().setVisible(true);
-//        this.dispose();
-//    } 
-//    else if (choice.equals("Customer")) {
-//        new CustomerFrame().setVisible(true);
-//        this.dispose();
-//    }    
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:                                         
+
     String firstName = jTextField2.getText();
     String lastName = jTextField3.getText();
-    String UserName = jTextField4.getText();
+    String userName = jTextField4.getText();
     String password = new String(jPasswordField1.getPassword());
+    String confirmPassword = new String(jPasswordField2.getPassword());
     String email = jTextField5.getText();
     String phone = jTextField6.getText();
-   String userType = (String) jComboBox1.getSelectedItem();
 
-   String confirmPassword = new String(jPasswordField2.getPassword());
-if (!password.equals(confirmPassword)) {
-    JOptionPane.showMessageDialog(this, "Passwords do not match!");
-    return;
-}  
+    // validations
+    if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty()
+            || password.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+        return;
+    }
 
-   if (jComboBox1.getSelectedIndex() == -1) {
-    JOptionPane.showMessageDialog(this, "Please select user type!");
-    return;
-} 
-   if (userType.trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please select a valid user type!");
-    return;
-}
+    if (!password.equals(confirmPassword)) {
+        JOptionPane.showMessageDialog(this, "Passwords do not match!");
+        return;
+    }
 
-   
-   if (firstName.isEmpty() || lastName.isEmpty() || UserName.isEmpty() || password.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please fill in all fields!");
-    return;
-}
-
-   
     try {
-        Connection con = DBConnection.getConnection();
-        String sql = "INSERT INTO Users (FirstName, LastName, PhoneNumber, Email, UserName, PasswordHash, UserType) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        PreparedStatement pst = con.prepareStatement(sql);
-          pst.setString(1, firstName);
-          pst.setString(2, lastName);
-          pst.setString(3, phone);
-          pst.setString(4, email);
-          pst.setString(5, UserName);
-          pst.setString(6, password); 
-          pst.setString(7, userType);
-         pst.executeUpdate();
+        // 🔹 Create CUSTOMER only
+        Customer customer = new Customer();
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setUserName(userName);
+       // customer.setPlainPassword(password);
+        customer.setEmail(email);
+        customer.setPhoneNumber(phone);
 
-        JOptionPane.showMessageDialog(this, "Account Created Successfully!");
-        if (userType.equals("Customer")) {
-        new CustomerAccFrame().setVisible(true);
-           }      
-        else if (userType.equals("Admin")) {
-    new AdminAccFrame().setVisible(true);
-}
-     this.dispose();
+        CustomerService customerService =
+                new CustomerService(new CustomerDAOimp(DBConnection.getConnection()));
+
+        customerService.addCustomer(customer,password);
+
+        JOptionPane.showMessageDialog(this, "this account created successfully!");
+        new CustomerFrame().setVisible(true);
+        this.dispose();
 
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error Creating Account!");
+        JOptionPane.showMessageDialog(this, "Error creating account!");
     }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -306,7 +267,6 @@ if (!password.equals(confirmPassword)) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

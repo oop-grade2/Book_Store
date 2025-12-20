@@ -4,6 +4,7 @@ import com.mycompany.bookstore.dao.BookDAO;
 import com.mycompany.bookstore.dao.SubCategoryDAO; 
 import com.mycompany.bookstore.model.Book;
 import com.mycompany.bookstore.model.SubCategory;
+import com.mycompany.bookstore.util.DBConnection;
 
 import java.sql.*;
 import java.util.List;
@@ -199,4 +200,20 @@ public class BookDAOimp implements BookDAO {
         }
         return book;
     }
+    public void updateQuantity(String bookId, int newQuantity) {
+
+    String sql = "UPDATE Book SET QuantityInStock = ? WHERE BookID = ?";
+
+    try (Connection con = DBConnection.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, newQuantity);
+        ps.setString(2, bookId);
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 }

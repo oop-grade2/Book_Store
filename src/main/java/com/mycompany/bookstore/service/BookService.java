@@ -1,7 +1,9 @@
 package com.mycompany.bookstore.service;
 
 import com.mycompany.bookstore.dao.BookDAO;
+import com.mycompany.bookstore.daoImp.BookDAOimp;
 import com.mycompany.bookstore.model.Book;
+import com.mycompany.bookstore.util.DBConnection;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +15,11 @@ public class BookService {
     public BookService(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
+
+    public BookService() {
+    this.bookDAO = new BookDAOimp(DBConnection.getConnection());
+}
+
 
     public void addBook(Book book) {
 
@@ -84,4 +91,26 @@ public class BookService {
             throw new IllegalArgumentException("Quantity must be >= 0");
         }
     }
+   // في BookService
+public boolean orderBook(String bookId, int quantity) {
+    Book book = bookDAO.getBookById(bookId);
+
+    if (book == null) {
+        return false;
+    }
+
+    if (quantity <= 0) {
+        return false;
+    }
+
+    if (book.getQuantityInStock() < quantity) {
+        return false; // الكمية مش كفاية
+    }
+
+    int newQty = book.getQuantityInStock() - quantity;
+    bookDAO.updateQuantity(bookId, newQty);
+
+    return true;
+}
+
 }

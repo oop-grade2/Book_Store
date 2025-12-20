@@ -8,5 +8,8 @@ public interface BookDAO {
     void updateBook(Book book);
     void deleteBook(String bookId);
     Book getBookById(String bookId);
+    
     List<Book> getAllBooks();
+
+    public void updateQuantity(String bookId, int i);
 }

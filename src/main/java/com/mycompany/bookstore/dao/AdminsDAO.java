@@ -3,6 +3,7 @@ import com.mycompany.bookstore.model.Admins;
 import java.util.List;
 
 public interface AdminsDAO {
+    Admins login(String username, String password);
     void addAdmin(Admins admin);
     void updateAdmin(Admins admin);
     void deleteAdmin(int userId);

@@ -13,23 +13,40 @@ public abstract class Users {
     private String passwordHash;
     private LocalDate accDateCreated;
     private LocalDate accDateUpdated;
+    protected String userType; 
+
     
     private boolean mustChangePassword = false;
 
-    public Users(int userId, String firstName, String lastName, String phoneNumber, 
-            String email, String userName, String passwordPlain, LocalDate accDateCreated, 
-            LocalDate accDateUpdated) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.userName = userName;
-        this.passwordHash = PasswordUtil.hashPassword(passwordPlain);
-        this.accDateCreated = accDateCreated;
-        this.accDateUpdated = accDateUpdated;
-    }
+//    public Users(int userId, String firstName, String lastName, String phoneNumber, 
+//            String email, String userName, String passwordPlain, LocalDate accDateCreated, 
+//            LocalDate accDateUpdated) {
+//        this.userId = userId;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phoneNumber = phoneNumber;
+//        this.email = email;
+//        this.userName = userName;
+//        this.passwordHash = PasswordUtil.hashPassword(passwordPlain);
+//        this.accDateCreated = accDateCreated;
+//        this.accDateUpdated = accDateUpdated;
+//    }
+//    
     
+    
+    public Users(int userId, String firstName, String lastName, String phoneNumber, 
+        String email, String userName, LocalDate accDateCreated, 
+        LocalDate accDateUpdated) {
+    this.userId = userId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.userName = userName;
+    this.accDateCreated = accDateCreated;
+    this.accDateUpdated = accDateUpdated;
+}
+
     public Users() {
         this.userId = 0;
         this.firstName = "";
@@ -89,6 +106,15 @@ public abstract class Users {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+    
 
     // عشان اليوزر يتنيل يغيرها ف هتتشفر
     public void setPlainPassword(String plainPassword) {

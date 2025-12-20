@@ -11,13 +11,21 @@ public class CustomerService {
         this.customerDAO = customerDAO;
     }
 
-    public void addCustomer(Customer customer) throws Exception {
+    public void addCustomer(Customer customer,String plainPassword) throws Exception {
         if (customer.getFirstName() == null || customer.getFirstName().isEmpty()) {
             throw new Exception("First name cannot be empty");
         }
         if (customer.getUserName() == null || customer.getUserName().isEmpty()) {
             throw new Exception("Username cannot be empty");
         }
+        
+        if (plainPassword == null || plainPassword.length() < 3) {
+        throw new Exception("Password must be at least 3 characters");
+    }
+
+    //  هنا الهاش بيحصل (عن طريق Users)
+      customer.setPlainPassword(plainPassword);
+        
         customerDAO.addCustomer(customer);
     }
 

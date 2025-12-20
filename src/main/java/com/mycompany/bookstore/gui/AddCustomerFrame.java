@@ -8,6 +8,8 @@ package com.mycompany.bookstore.gui;
  *
  * @author ALFAZAIRI
  */
+
+//الادمن بيضيف customer
 public class AddCustomerFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddCustomerFrame.class.getName());

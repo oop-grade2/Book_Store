@@ -8,4 +8,6 @@ public interface CustomerDAO {
     void deleteCustomer(int userId);
     Customer getCustomerById(int userId);
     List<Customer> getAllCustomers();
+
+    public Customer login(String username, String password);
 }

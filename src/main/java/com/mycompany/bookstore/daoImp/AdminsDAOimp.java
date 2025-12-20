@@ -233,4 +233,26 @@ public class AdminsDAOimp implements AdminsDAO {
 
         return admin;
     }
+    @Override
+public Admins login(String username, String password) {
+    String sql =
+        "SELECT u.UserID, u.FirstName, u.LastName, u.PhoneNumber, u.Email, u.UserName, " +
+        "u.PasswordHash, u.AccDateCreated, u.AccDateUpdated, a.Department, a.Role " +
+        "FROM Users u JOIN Admins a ON u.UserID = a.UserID " +
+        "WHERE u.UserName=? AND u.PasswordHash=?";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return convertToAdmin(rs);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
 }
