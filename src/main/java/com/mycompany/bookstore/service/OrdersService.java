@@ -7,6 +7,7 @@ import com.mycompany.bookstore.model.Orders;
 
 import java.sql.Connection;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class OrdersService {
 
@@ -17,6 +18,9 @@ public class OrdersService {
         this.ordersDAO = new OrdersDAOimp(connection);
         this.orderItemsDAO = new OrderItemsDAOimp(connection);
     }
+ // public List<Orders> getOrdersForCurrentUser(int userId) {
+  //  return ordersDAO.getOrdersByUserId(userId);
+//}
 
 
     public void placeOrder(Orders order) {
@@ -50,4 +54,15 @@ public class OrdersService {
     public Orders getOrderById(int orderId) {
         return ordersDAO.getOrderById(orderId);
     }
+
+    public List<Orders> getOrdersByUserId(int userId) {
+ return ordersDAO.getOrdersByUserId(userId);    }
+
+   public void deleteOrder(int orderId) {
+    ordersDAO.deleteOrder(orderId);
+}
+
+    
+  
+
 }

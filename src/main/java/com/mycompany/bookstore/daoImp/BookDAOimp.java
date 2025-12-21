@@ -200,6 +200,8 @@ public class BookDAOimp implements BookDAO {
         }
         return book;
     }
+    
+    
     public void updateQuantity(String bookId, int newQuantity) {
 
     String sql = "UPDATE Book SET QuantityInStock = ? WHERE BookID = ?";
@@ -214,6 +216,49 @@ public class BookDAOimp implements BookDAO {
     } catch (SQLException e) {
         e.printStackTrace();
     }
+    }
+    
+  public BigDecimal getBookPriceById(String bookId) {
+
+    String sql = "SELECT Price FROM Book WHERE BookID = ?";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ps.setString(1, bookId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getBigDecimal("Price");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return BigDecimal.ZERO; // لو مش لاقي الكتاب
 }
 
+    public String getBookTitleById(String bookId) {
+
+    String sql = "SELECT Title FROM Book WHERE BookID = ?";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ps.setString(1, bookId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("Title");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null; // لو الكتاب مش موجود
 }
+
+    
+    
+}
+

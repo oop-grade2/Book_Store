@@ -29,10 +29,11 @@ C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\jav
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\BookFormFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\BooksFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CreateAccountFrame.java
+C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CreateOrderFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerFrame.java
-C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerInfoFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\CustomerTableFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\LoginFrame.java
+C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\gui\OrdersFrame.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\main\BookStore.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Admins.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\model\Book.java
@@ -60,5 +61,6 @@ C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\jav
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\service\ShippingService.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\service\SubCategoryService.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\service\WishListService.java
+C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\session\Session.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\util\DBConnection.java
 C:\Users\ALFAZAIRI\Documents\NetBeansProjects\New Folder\Book_Store\src\main\java\com\mycompany\bookstore\util\PasswordUtil.java

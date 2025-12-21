@@ -257,5 +257,37 @@ public class OrdersDAOimp implements OrdersDAO {
         }
         return null;
     }
+    public List<Orders> getOrdersByUserId(int userId) {
+    List<Orders> list = new ArrayList<>();
+    String sql = "SELECT * FROM Orders WHERE UserID = ?";
+
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setInt(1, userId);
+        ResultSet res = statement.executeQuery();
+
+        while (res.next()) {
+            Orders order = new Orders();
+            int orderId = res.getInt("OrderID");
+            order.setOrderId(orderId);
+
+            Date orderDate = res.getDate("OrderDate");
+            if (orderDate != null)
+                order.setOrderDate(orderDate.toLocalDate());
+
+            order.setTotalAmount(res.getBigDecimal("TotalAmount"));
+            order.setPaymentStatus(res.getString("PaymentStatus"));
+
+            Customer customer = new Customer();
+            customer.setUserId(userId);
+            order.setCustomer(customer);
+
+            list.add(order);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
 }
 

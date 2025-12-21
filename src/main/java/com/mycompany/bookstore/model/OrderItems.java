@@ -67,5 +67,9 @@ public class OrderItems {
         
         return book.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
+
+    public void setBookId(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

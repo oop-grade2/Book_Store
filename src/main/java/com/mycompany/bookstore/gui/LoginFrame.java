@@ -4,6 +4,7 @@
  */
 package com.mycompany.bookstore.gui;
 
+import com.mycompany.bookstore.Session.Session;
 import com.mycompany.bookstore.daoImp.UserDAOimp;
 import com.mycompany.bookstore.model.Admins;
 import com.mycompany.bookstore.model.Customer;
@@ -187,7 +188,12 @@ if (user == null) {
 
 if (user instanceof Admins) {
     new AdminFrame().setVisible(true);
+
 } else if (user instanceof Customer) {
+    Customer customer = (Customer) user;
+
+    Session.setCurrentCustomer(customer);
+
     new CustomerFrame().setVisible(true);
 }
 

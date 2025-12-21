@@ -10,14 +10,14 @@ package com.mycompany.bookstore.gui;
  */
 
 //الادمن بيضيف customer
-public class AddCustomerFrame extends javax.swing.JFrame {
+public class AddAdminFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddCustomerFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddAdminFrame.class.getName());
 
     /**
      * Creates new form AddCustomerFrame
      */
-    public AddCustomerFrame() {
+    public AddAdminFrame() {
         initComponents();
     }
 
@@ -131,7 +131,7 @@ public class AddCustomerFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AddCustomerFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AddAdminFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

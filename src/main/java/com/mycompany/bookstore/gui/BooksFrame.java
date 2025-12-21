@@ -20,7 +20,10 @@ public class BooksFrame extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> sorter;
     private boolean isAdmin;
 
-    
+    public void refreshTable() {
+    loadBooks(); // أو أي ميثود بتملي الجدول
+}
+
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BooksFrame.class.getName());
     private BookService bookService = new BookService();
@@ -289,8 +292,13 @@ private void loadBooks() {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //ediiiiit
+        
     int row = jTable1.getSelectedRow();
-    if (row == -1) return;
+    if (row == -1){
+        JOptionPane.showMessageDialog(this, "Select a book first");
+
+        return;}
 
     String bookId = jTable1.getValueAt(row, 0).toString();
     new BookFormFrame(this, bookId).setVisible(true);
@@ -368,7 +376,7 @@ private void loadBooks() {
    boolean success = bookService.orderBook(bookId, qty);
 
 if (success) {
-    new CustomerInfoFrame(bookId, qty).setVisible(true);
+    new CreateOrderFrame(bookId, qty).setVisible(true);
 } else {
     JOptionPane.showMessageDialog(
         this,
@@ -442,4 +450,6 @@ if (success) {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+   
 }

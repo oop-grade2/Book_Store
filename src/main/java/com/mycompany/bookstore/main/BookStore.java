@@ -6,6 +6,7 @@ import com.mycompany.bookstore.dao.BookDAO;
 import com.mycompany.bookstore.daoImp.BookDAOimp;
 import com.mycompany.bookstore.gui.LoginFrame;
 import com.mycompany.bookstore.model.Book;
+import com.mycompany.bookstore.util.PasswordUtil;
 
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -14,6 +15,9 @@ import java.math.BigDecimal;
 public class BookStore {
     public static void main(String[] args) {
     Connection connection = DBConnection.getConnection();
+//    System.out.println(PasswordUtil.hashPassword("admin123")); 
+
+
     
 //            Connection connection = null;
 //        try {
